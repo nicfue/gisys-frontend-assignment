@@ -18,7 +18,7 @@ module.exports = defineConfig([
         'error',
         {
           type: 'attribute',
-          prefix: 'app',
+          prefix: 'gisys',
           style: 'camelCase',
         },
       ],
@@ -26,7 +26,7 @@ module.exports = defineConfig([
         'error',
         {
           type: 'element',
-          prefix: 'app',
+          prefix: 'gisys',
           style: 'kebab-case',
         },
       ],
