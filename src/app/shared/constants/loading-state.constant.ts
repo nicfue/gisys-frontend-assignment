@@ -4,3 +4,5 @@ export const loadingState = {
   SUCCESS: 'success',
   ERROR: 'error',
 };
+
+export type LoadingState = (typeof loadingState)[keyof typeof loadingState];

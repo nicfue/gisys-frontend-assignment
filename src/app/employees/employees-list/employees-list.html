@@ -1,1 +1,20 @@
-<p>employees-list works!</p>
+Anställda 
+@switch (employeesLoadingState()) {
+    @case(loadingState.LOADING) {
+        loading
+    }
+    @case(loadingState.SUCCESS) {
+        @for(employee of employeesSignal(); track employee.id) {
+        <p>{{employee.id}}</p>
+        <p>{{employee.name}}</p>
+        <p>{{employee.salary}}</p>
+        <p>{{employee.age}}</p>
+        <p>{{employee.profileImage}}</p>
+        }
+    }
+    @case(loadingState.ERROR) {
+        något gick fel
+    }
+}
+
+

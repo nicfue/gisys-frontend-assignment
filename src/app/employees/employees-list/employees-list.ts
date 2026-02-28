@@ -1,12 +1,19 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { EmployeesService } from '../services/employees.service';
+import { loadingState } from '../../shared/constants/loading-state.constant';
 
 @Component({
   selector: 'gisys-employees-list',
-  imports: [],
   templateUrl: './employees-list.html',
-  styleUrl: './employees-list.scss',
+  styleUrls: ['./employees-list.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EmployeesList implements OnInit {
+export class EmployeesListComponent {
   private employeesService = inject(EmployeesService);
+
+  loadingState = loadingState;
+
+  employeesLoadingState = this.employeesService.getEmployeesLoadingStateSignal();
+  employeesSignal = this.employeesService.getEmployeesSignal();
+  error = this.employeesService.getEmployeesErrorSignal();
 }
