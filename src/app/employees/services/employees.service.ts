@@ -3,9 +3,9 @@ import { take } from 'rxjs';
 import { EmployeeDto } from '../../shared/api/models/employee-dto.model';
 import { EmployeesApiService } from '../../shared/api/services/employees-api.service';
 import { LoadingState, loadingState } from '../../shared/constants/loading-state.constant';
-import { mapApiError } from '../../shared/mappers/employee-error.mapper';
+import { mapApiError } from '../mappers/employee-error.mapper';
 import { EmployeeError } from '../../shared/models/employee-error.model';
-import { Employee } from '../../shared/models/employee.model';
+import { Employee } from '../models/employee.model';
 
 @Injectable({
   providedIn: 'root',
