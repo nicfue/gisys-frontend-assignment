@@ -1,20 +1,34 @@
-Anställda 
-@switch (employeesLoadingState()) {
-    @case(loadingState.LOADING) {
-        loading
-    }
-    @case(loadingState.SUCCESS) {
-        @for(employee of employeesSignal(); track employee.id) {
-        <p>{{employee.id}}</p>
-        <p>{{employee.name}}</p>
-        <p>{{employee.salary}}</p>
-        <p>{{employee.age}}</p>
-        <p>{{employee.profileImage}}</p>
-        }
-    }
-    @case(loadingState.ERROR) {
-        något gick fel
-    }
-}
-
-
+<div class="max-w-6xl mx-auto">
+  <div class="max-w-4xl mx-auto px-6 py-16">
+    <h1 class="text-3xl font-semibold mb-10">Anställda</h1>
+    @switch (loadingStateSignal()) { 
+			@case(loadingState.LOADING) {
+				<gisys-loader></gisys-loader>
+    	} 
+			@case(loadingState.SUCCESS) {
+    		<div class="grid gap-6">
+    		  @for(employee of employeesSignal(); track employee.id) {
+    		  <a [routerLink]="[employee.id]">
+    		    <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition cursor-pointer">
+    		      <div class="flex justify-between items-center">
+    		        <div>
+    		          <h2 class="text-lg font-medium">{{employee.name}}</h2>
+    		          <p class="text-sm text-gray-500">Ålder: {{employee.age}}</p>
+    		        </div>
+							
+    		        <div class="text-right">
+    		          <p class="text-sm text-gray-500">Lön</p>
+    		          <p class="text-base font-semibold">{{employee.salary}}</p>
+    		        </div>
+    		      </div>
+    		    </div>
+    		  </a>
+    		  }
+    		</div>
+    	} 
+			@case(loadingState.ERROR) { 
+				<gisys-error [error]="error()"></gisys-error>
+			} 
+		}
+  </div>
+</div>

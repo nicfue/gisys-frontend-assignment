@@ -1,1 +1,48 @@
-<p>employee-detail works!</p>
+<div class="min-h-screen">
+  <div class="max-w-3xl mx-auto px-6 py-20">
+    <a 
+			routerLink="/anstallda" 
+			class="text-sm text-gray-500 hover:text-gray-900 transition">
+      Tillbaka
+    </a>
+
+    @switch (loadingStateSignal()) { 
+			@case(loadingState.LOADING) {
+    		<gisys-loader></gisys-loader>
+    	} 
+			@case (loadingState.SUCCESS) { 
+				<div class="mt-12 bg-white rounded-2xl shadow-sm p-12">
+					<header class="mb-10">
+						<h1 class="text-3xl font-semibold text-gray-900">
+							{{employee()?.name}}
+						</h1>
+						<p class="text-gray-500 mt-2">
+							ID: {{ employee()?.id }}
+						</p>
+					</header>
+
+					<div class="space-y-6">
+						<div class="flex justify-between border-b pb-4">
+							<span class="text-gray-500">Ålder</span>
+							<span class="font-medium text-gray-900">
+								{{ employee()?.age}}
+							</span>
+						</div>
+
+						<div class="flex justify-between border-b pb-4">
+							<span class="text-gray-500">Lön</span>
+							<span class="font-medium text-gray-900">
+								{{ employee()?.salary }}
+							</span>
+						</div>
+
+					</div>
+				</div>
+
+			} 
+			@case (loadingState.ERROR) {
+				<gisys-error [error]="error()"></gisys-error>
+    	} 
+		}
+  </div>
+</div>

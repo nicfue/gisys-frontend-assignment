@@ -5,3 +5,7 @@ export interface ApiResponse {
   data: EmployeeDto[];
   message?: string;
 }
+
+export interface ApiErrorResponse {
+  message: string;
+}
