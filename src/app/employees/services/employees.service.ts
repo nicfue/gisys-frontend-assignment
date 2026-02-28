@@ -20,8 +20,8 @@ export class EmployeesService {
   private _employeesError = signal<EmployeeError | null>(null);
   private _employeeError = signal<EmployeeError | null>(null);
 
-  constructor() {
-    this._getEmployees();
+  loadEmployees() {
+    return this._getEmployees();
   }
 
   getEmployeesSignal() {
@@ -48,7 +48,9 @@ export class EmployeesService {
     return this._employeeError.asReadonly();
   }
 
+
   private _getEmployees() {
+    this._employeesError.set(null);
     this._employeesLoadingState.set(loadingState.LOADING);
 
     return this.employeesApiService
@@ -60,14 +62,15 @@ export class EmployeesService {
           this._employeesLoadingState.set(loadingState.SUCCESS);
         },
         error: (error) => {
-       	const apiError = mapApiError(error);
-        this._employeesError.set(apiError);
+          const apiError = mapApiError(error);
+          this._employeesError.set(apiError);
           this._employeesLoadingState.set(loadingState.ERROR);
         },
       });
   }
 
   getEmployee(id: number) {
+    this._employeeError.set(null);
     this._employeeLoadingState.set(loadingState.LOADING);
 
     return this.employeesApiService
@@ -79,32 +82,23 @@ export class EmployeesService {
           this._employeeLoadingState.set(loadingState.SUCCESS);
         },
         error: (error) => {
-					const apiError = mapApiError(error);
+          const apiError = mapApiError(error);
           this._employeeError.set(apiError);
           this._employeeLoadingState.set(loadingState.ERROR);
         },
       });
   }
 
-  private _mapEmployeesDtoToEmployees(employeeDto: EmployeeDto[]): Employee[] {
-    return employeeDto.map((employee) => ({
-      id: employee.id,
-      name: employee.employee_name,
-      salary: employee.employee_salary,
-      age: employee.employee_age,
-      profileImage: employee.profile_image,
-    }));
-  }
-
   private _mapEmployeeDtoToEmployee(employeeDto: EmployeeDto): Employee {
-    const { id, employee_name, employee_salary, employee_age, profile_image } = employeeDto;
-
     return {
-      id,
-      name: employee_name,
-      salary: employee_salary,
-      age: employee_age,
-      profileImage: profile_image,
+      id: employeeDto.id,
+      name: employeeDto.employee_name,
+      salary: employeeDto.employee_salary,
+      age: employeeDto.employee_age,
+      profileImage: employeeDto.profile_image,
     };
+  }
+  private _mapEmployeesDtoToEmployees(employeeDtos: EmployeeDto[]): Employee[] {
+    return employeeDtos.map((employee) => this._mapEmployeeDtoToEmployee(employee))
   }
 }

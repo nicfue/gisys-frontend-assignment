@@ -21,7 +21,11 @@ export class EmployeesListComponent {
 
   loadingState = loadingState;
 
-  loadingStateSignal = this.employeesService.getEmployeesLoadingState();
+  constructor() {
+    this.employeesService.loadEmployees();
+  }
+
   employeesSignal = this.employeesService.getEmployeesSignal();
-  error = this.employeesService.getEmployeesError();
+  loadingStateSignal = this.employeesService.getEmployeesLoadingState();
+  errorSignal = this.employeesService.getEmployeesError();
 }

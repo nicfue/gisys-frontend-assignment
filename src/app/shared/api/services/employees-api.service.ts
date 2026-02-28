@@ -14,33 +14,33 @@ export class EmployeesApiService {
   private apiUrl = 'https://dummy.restapiexample.com/api/v1/employees';
 
   getEmployees$(): Observable<EmployeeDto[]> {
-    // return this.httpClient.get<ApiResponse>(this.apiUrl).pipe(
-    //   map((response) => response.data),
-    //   catchError((error) => {
-    //     console.error('Error fetching employees:', error);
-    //     throw error;
-    //   })
-    // )
-
-    return of(employeesMock).pipe(
+    return this.httpClient.get<ApiResponse>(this.apiUrl).pipe(
       map((response) => response.data),
-    );
+      catchError((error) => {
+        console.error('Error fetching employees:', error);
+        throw error;
+      })
+    )
+
+    // return of(employeesMock).pipe(
+    //   map((response) => response.data),
+    // );
   }
 
   getEmployee$(id: number): Observable<EmployeeDto> {
-    // return this.httpClient.get<EmployeeDto>(`${this.apiUrl}/${id}`).pipe(
-    //   catchError((error) => {
-    //     console.log('Error fetching employee:', error);
-    //     throw error;
-    //   }),
-    // );
+    return this.httpClient.get<EmployeeDto>(`${this.apiUrl}/${id}`).pipe(
+      catchError((error) => {
+        console.log('Error fetching employee:', error);
+        throw error;
+      }),
+    );
 
-   return of({
-      id: 1,
-      employee_name: 'Tiger Nixon',
-      employee_salary: '320800',
-      employee_age: '61',
-      profile_image: '',
-    });
+  //  return of({
+  //     id: 1,
+  //     employee_name: 'Tiger Nixon',
+  //     employee_salary: '320800',
+  //     employee_age: '61',
+  //     profile_image: '',
+  //   });
   }
 }

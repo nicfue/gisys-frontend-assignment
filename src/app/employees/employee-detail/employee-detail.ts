@@ -22,9 +22,9 @@ export class EmployeeDetailComponent implements OnInit {
 
   loadingState = loadingState;
 
-  employee = this.employeesService.getEmployeeSignal();
+  employeeSignal = this.employeesService.getEmployeeSignal();
   loadingStateSignal = this.employeesService.getEmployeeLoadingState();
-  error = this.employeesService.getEmployeeError();
+  errorSignal = this.employeesService.getEmployeeError();
 
   ngOnInit(): void {
     const { id } = this.activatedRoute.snapshot.params;
