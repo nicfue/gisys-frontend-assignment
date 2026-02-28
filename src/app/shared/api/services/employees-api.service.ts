@@ -3,7 +3,6 @@ import { inject, Injectable } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
 import { ApiResponse } from '../models/api-response.model';
 import { EmployeeDto } from '../models/employee-dto.model';
-import { employeesMock } from '../../../employees/employees-mock.ts/employees-mock';
 
 @Injectable({
   providedIn: 'root',
@@ -21,10 +20,6 @@ export class EmployeesApiService {
         throw error;
       })
     )
-
-    // return of(employeesMock).pipe(
-    //   map((response) => response.data),
-    // );
   }
 
   getEmployee$(id: number): Observable<EmployeeDto> {
