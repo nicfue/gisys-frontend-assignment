@@ -98,6 +98,7 @@ export class EmployeesService {
       profileImage: employeeDto.profile_image,
     };
   }
+  
   private _mapEmployeesDtoToEmployees(employeeDtos: EmployeeDto[]): Employee[] {
     return employeeDtos.map((employee) => this._mapEmployeeDtoToEmployee(employee))
   }
