@@ -1,7 +1,7 @@
 export interface Employee {
   id: number;
   name: string;
-  salary: string;
-  age: string;
-  profileImage: string;
+  salary: number;
+  age: number;
+  profileImage?: string;
 }

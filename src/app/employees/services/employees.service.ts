@@ -1,10 +1,10 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { take } from 'rxjs';
-import { EmployeeDto } from '../../shared/api/models/employee-dto.model';
+import { EmployeeDto } from '../../shared/api/models/api-response.model';
 import { EmployeesApiService } from '../../shared/api/services/employees-api.service';
 import { LoadingState, loadingState } from '../../shared/constants/loading-state.constant';
-import { mapApiError } from '../mappers/employee-error.mapper';
 import { EmployeeError } from '../../shared/models/employee-error.model';
+import { mapApiError } from '../mappers/employee-error.mapper';
 import { Employee } from '../models/employee.model';
 
 @Injectable({
@@ -48,7 +48,6 @@ export class EmployeesService {
     return this._employeeError.asReadonly();
   }
 
-
   private _getEmployees() {
     this._employeesError.set(null);
     this._employeesLoadingState.set(loadingState.LOADING);
@@ -91,15 +90,15 @@ export class EmployeesService {
 
   private _mapEmployeeDtoToEmployee(employeeDto: EmployeeDto): Employee {
     return {
-      id: employeeDto.id,
+      id: +employeeDto.id,
       name: employeeDto.employee_name,
-      salary: employeeDto.employee_salary,
-      age: employeeDto.employee_age,
-      profileImage: employeeDto.profile_image,
+      salary: +employeeDto.employee_salary,
+      age: +employeeDto.employee_age,
+      profileImage: employeeDto.profile_image ?? undefined,
     };
   }
-  
+
   private _mapEmployeesDtoToEmployees(employeeDtos: EmployeeDto[]): Employee[] {
-    return employeeDtos.map((employee) => this._mapEmployeeDtoToEmployee(employee))
+    return employeeDtos.map((employee) => this._mapEmployeeDtoToEmployee(employee));
   }
 }
